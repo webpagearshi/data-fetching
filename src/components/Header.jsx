@@ -14,7 +14,7 @@ export default function Header({ interactionData, titleColor }) {
           fontWeight: 800,
           letterSpacing: "-0.5px",
           color: titleColor,
-          WebkitTextStroke: "0.6px #111111",
+          WebkitTextStroke: "1px #111111",
           paintOrder: "stroke fill",
           margin: 0,
           transition: "color 200ms ease",
@@ -24,17 +24,23 @@ export default function Header({ interactionData, titleColor }) {
       </h1>
 
       {interactionData && (
-        <p
+        <div
           style={{
+            height: "28px",
+            marginTop: "8px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             fontSize: "16px",
-            fontWeight: 500,
+            fontWeight: 600,
             color: "#111111",
-            margin: "10px 0 0",
+            textAlign: "center",
           }}
         >
-          {interactionData.yLabel} · {interactionData.value}°C · Week of{" "}
-          {interactionData.weekStart}
-        </p>
+          {interactionData
+            ? `${interactionData.yLabel} · ${interactionData.value}°C · Week of ${interactionData.weekStart}`
+            : ""}
+        </div>
       )}
     </header>
   );

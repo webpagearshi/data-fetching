@@ -63,6 +63,8 @@ export default function Renderer({
         opacity={1}
         fill={colorScale(d.value)}
         rx={5}
+        stroke="white"
+        strokeWidth={1}
         onMouseEnter={() => {
           const weekDate = new Date(Date.UTC(2025, 0, 1 + d.week * 7));
 
@@ -82,32 +84,39 @@ export default function Renderer({
             value: Math.round(d.value * 100) / 100,
           });
         }}
-        onMouseLeave={() => setHoveredCell(null)}
       />
     );
   });
 
   // Build the week labels
-  const xLabels = allXGroups.map((week) => {
-    const x = xScale(week);
+  const monthLabels = [
+    { month: "Jan", week: 0 },
+    { month: "Feb", week: 5 },
+    { month: "Mar", week: 9 },
+    { month: "Apr", week: 13 },
+    { month: "May", week: 17 },
+    { month: "Jun", week: 22 },
+    { month: "Jul", week: 26 },
+    { month: "Aug", week: 30 },
+    { month: "Sep", week: 35 },
+    { month: "Oct", week: 39 },
+    { month: "Nov", week: 43 },
+    { month: "Dec", week: 48 },
+  ];
 
-    if (x == null) {
-      return null;
-    }
-
-    return (
-      <text
-        key={week}
-        x={x + xScale.bandwidth() / 2}
-        y={boundsHeight + 10}
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fontSize={10}
-      >
-        {Number(week) + 1}
-      </text>
-    );
-  });
+  const xLabels = monthLabels.map((d) => (
+    <text
+      key={d.month}
+      x={xScale(String(d.week)) + xScale.bandwidth() / 2}
+      y={boundsHeight + 20}
+      textAnchor="middle"
+      fontSize={12}
+      fill="#333"
+      fontFamily="Nunito, sans-serif"
+    >
+      {d.month}
+    </text>
+  ));
 
   // Build the city labels
   const yLabels = allYGroups.map((city) => {
@@ -133,7 +142,11 @@ export default function Renderer({
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg
+      width={width}
+      height={height}
+      onMouseLeave={() => setHoveredCell(null)}
+    >
       <g
         width={boundsWidth}
         height={boundsHeight}

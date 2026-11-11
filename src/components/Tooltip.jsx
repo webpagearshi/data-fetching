@@ -15,6 +15,7 @@ export default function Tooltip({ interactionData, width, height }) {
         top: 0,
         left: 0,
         pointerEvents: "none",
+        animation: "tooltipFadeIn 180ms ease",
       }}
     >
       {/* The actual tooltip box */}
