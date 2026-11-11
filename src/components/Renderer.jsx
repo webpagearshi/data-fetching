@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import * as d3 from "d3";
 import { MARGIN } from "./constants.js";
-import styles from "./Renderer.module.css";
+import styles from "./renderer.module.css";
 
 export default function Renderer({
   width,
