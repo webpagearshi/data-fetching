@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import * as d3 from "d3";
 import { MARGIN } from "./constants.js";
+import styles from "./Renderer.module.css";
 
 export default function Renderer({
   width,
@@ -61,7 +62,6 @@ export default function Renderer({
         opacity={1}
         fill={colorScale(d.value)}
         rx={5}
-        stroke="white"
         onMouseEnter={() => {
           setHoveredCell({
             xLabel: `Week ${d.week + 1}`,
@@ -72,7 +72,7 @@ export default function Renderer({
           });
         }}
         onMouseLeave={() => setHoveredCell(null)}
-        cursor="pointer"
+        className={styles.rectangle}
       />
     );
   });

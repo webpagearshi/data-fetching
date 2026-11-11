@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { rollups, mean } from "d3-array";
 import { CITIES } from "./data/cities.js";
+import Heatmap from "./components/Heatmap.jsx";
 
 // The Archive API serves historical data.
 // All 20 cities are requested in ONE API call.

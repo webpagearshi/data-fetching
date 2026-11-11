@@ -1,9 +1,6 @@
 import { useState } from "react";
 import * as d3 from "d3";
-
 import { COLOR_LEGEND_HEIGHT } from "./constants.js";
-import { MARGIN } from "./constants.js";
-
 import Renderer from "./Renderer.jsx";
 import Tooltip from "./Tooltip.jsx";
 import ColorLegend from "./ColorLegend.jsx";
