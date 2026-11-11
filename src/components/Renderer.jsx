@@ -64,9 +64,19 @@ export default function Renderer({
         fill={colorScale(d.value)}
         rx={5}
         onMouseEnter={() => {
+          const weekDate = new Date(Date.UTC(2025, 0, 1 + d.week * 7));
+
+          const weekStart = weekDate.toLocaleDateString("en", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+            timeZone: "UTC",
+          });
+
           setHoveredCell({
             xLabel: `Week ${d.week + 1}`,
             yLabel: d.city,
+            weekStart,
             xPos: x + xScale.bandwidth() + MARGIN.left,
             yPos: y + yScale.bandwidth() / 2 + MARGIN.top,
             value: Math.round(d.value * 100) / 100,

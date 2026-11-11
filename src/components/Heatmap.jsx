@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import * as d3 from "d3";
-
+import Header from "./Header.jsx";
 import { COLOR_LEGEND_HEIGHT } from "./constants.js";
 import Renderer from "./Renderer.jsx";
 import Tooltip from "./Tooltip.jsx";
@@ -30,9 +30,11 @@ export default function Heatmap({ width, height, data }) {
         .unknown("#eeeeee"),
     [min, max],
   );
+  const titleColor = hoveredCell ? colorScale(hoveredCell.value) : "#111111"; // Change title color based on hovered cell
 
   return (
     <div style={{ position: "relative" }}>
+      <Header interactionData={hoveredCell} titleColor={titleColor} />
       <Renderer
         width={width}
         height={height - COLOR_LEGEND_HEIGHT}
