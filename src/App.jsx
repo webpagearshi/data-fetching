@@ -79,12 +79,27 @@ export default function App() {
   }, []);
 
   return (
-    <div style={{ padding: 24, fontFamily: "system-ui, sans-serif" }}>
+    <div
+      style={{
+        width: "100%",
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        padding: "24px",
+        boxSizing: "border-box",
+        fontFamily: "system-ui, sans-serif",
+      }}
+    >
       {isLoading && <p style={{ color: "#6b7280", margin: 0 }}>Loading...</p>}
 
       {!isLoading && data && (
-        <div>
-          <h2>Data fetched successfully!</h2>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "1200px",
+          }}
+        >
+          <Heatmap data={data} width={1000} height={500} />
         </div>
       )}
     </div>
