@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import * as d3 from "d3";
+
 import { COLOR_LEGEND_HEIGHT } from "./constants.js";
 import Renderer from "./Renderer.jsx";
 import Tooltip from "./Tooltip.jsx";
@@ -9,20 +10,26 @@ export default function Heatmap({ width, height, data }) {
   const [hoveredCell, setHoveredCell] = useState(null);
 
   // Get all valid temperature values
-  const values = data
-    .map((d) => d.value)
-    .filter((d) => d !== null && Number.isFinite(d));
+  const values = useMemo(
+    () =>
+      data.map((d) => d.value).filter((d) => d !== null && Number.isFinite(d)),
+    [data],
+  );
 
   // Find minimum and maximum temperatures
   const min = d3.min(values) ?? 0;
   const max = d3.max(values) ?? 0;
 
   // Create a colour scale
-  const colorScale = d3
-    .scaleSequential()
-    .domain([min, max])
-    .interpolator(d3.interpolateRdYlBu)
-    .unknown("#eeeeee");
+  const colorScale = useMemo(
+    () =>
+      d3
+        .scaleSequential()
+        .domain([min, max])
+        .interpolator((t) => d3.interpolateRdYlBu(1 - t))
+        .unknown("#eeeeee"),
+    [min, max],
+  );
 
   return (
     <div style={{ position: "relative" }}>
