@@ -84,8 +84,6 @@ export default function App() {
       {!isLoading && data && (
         <div>
           <h2>Data fetched successfully!</h2>
-          <p>Total records: {data.length}</p>
-          <pre>{JSON.stringify(data.slice(0, 5), null, 2)}</pre>
         </div>
       )}
     </div>
