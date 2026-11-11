@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { rollups, mean } from "d3-array";
 import { CITIES } from "./data/cities.js";
 import Heatmap from "./components/Heatmap.jsx";
+import { useDimensions } from "./hooks/useDimensions.js";
 
 // The Archive API serves historical data.
 // All 20 cities are requested in ONE API call.
@@ -17,6 +18,9 @@ const url =
 export default function App() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const containerRef = useRef(null); // Ref for the container div
+  const { width } = useDimensions(containerRef); // Get the width of the container
+  //console.log("Container width:", width);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -90,18 +94,19 @@ export default function App() {
         fontFamily: "system-ui, sans-serif",
       }}
     >
-      {isLoading && <p style={{ color: "#6b7280", margin: 0 }}>Loading...</p>}
+      <div
+        ref={containerRef}
+        style={{
+          width: "100%",
+          maxWidth: "1200px",
+        }}
+      >
+        {isLoading && <p style={{ color: "#6b7280", margin: 0 }}>Loading...</p>}
 
-      {!isLoading && data && (
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "1200px",
-          }}
-        >
-          <Heatmap data={data} width={1000} height={500} />
-        </div>
-      )}
+        {!isLoading && data && width > 0 && (
+          <Heatmap data={data} width={width} height={500} />
+        )}
+      </div>
     </div>
   );
 }
