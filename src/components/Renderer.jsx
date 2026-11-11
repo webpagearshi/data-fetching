@@ -75,6 +75,20 @@ export default function Renderer({
             timeZone: "UTC",
           });
 
+          const previousWeek = data.find(
+            (item) => item.city === d.city && item.week === d.week - 1,
+          );
+
+          let percentChange = null;
+
+          if (previousWeek && previousWeek.value != null) {
+            const currentKelvin = d.value + 273.15;
+            const previousKelvin = previousWeek.value + 273.15;
+
+            percentChange =
+              ((currentKelvin - previousKelvin) / previousKelvin) * 100;
+          }
+
           setHoveredCell({
             xLabel: `Week ${d.week + 1}`,
             yLabel: d.city,
@@ -82,6 +96,7 @@ export default function Renderer({
             xPos: x + xScale.bandwidth() + MARGIN.left,
             yPos: y + yScale.bandwidth() / 2 + MARGIN.top,
             value: Math.round(d.value * 100) / 100,
+            percentChange,
           });
         }}
       />

@@ -5,8 +5,26 @@ export default function Tooltip({ interactionData, width, height }) {
     return null;
   }
 
+  const { percentChange } = interactionData;
+
+  let comparison = null;
+
+  if (percentChange !== null && Number.isFinite(percentChange)) {
+    const arrow = percentChange > 0 ? "▲" : percentChange < 0 ? "▼" : "→";
+    const arrowColor =
+      percentChange > 0 ? "#f28e2b" : percentChange < 0 ? "#4e79a7" : "#111111";
+    const sign = percentChange > 0 ? "+" : "";
+
+    comparison = (
+      <>
+        <span style={{ color: arrowColor, fontWeight: 800 }}>{arrow}</span>{" "}
+        {sign}
+        {percentChange.toFixed(2)}%
+      </>
+    );
+  }
+
   return (
-    // Wrapper div: positioned over the heatmap
     <div
       style={{
         width,
@@ -18,7 +36,6 @@ export default function Tooltip({ interactionData, width, height }) {
         animation: "tooltipFadeIn 180ms ease",
       }}
     >
-      {/* The actual tooltip box */}
       <div
         className={styles.tooltip}
         style={{
@@ -29,9 +46,24 @@ export default function Tooltip({ interactionData, width, height }) {
       >
         <span>{interactionData.yLabel}</span>
         <br />
-        <span>{interactionData.xLabel}</span>
-        <span>: </span>
-        <b>{interactionData.value}°C</b>
+
+        <span>
+          Week starting: <b>{interactionData.weekStart}</b>
+        </span>
+        <br />
+
+        <span>
+          Temperature: <b>{interactionData.value}°C</b>
+        </span>
+
+        {comparison && (
+          <>
+            <br />
+            <span>
+              Previous week: <b>{comparison}</b>
+            </span>
+          </>
+        )}
       </div>
     </div>
   );
