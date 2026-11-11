@@ -124,7 +124,8 @@ export default function Renderer({
         y={y + yScale.bandwidth() / 2}
         textAnchor="end"
         dominantBaseline="middle"
-        fontSize={10}
+        fontSize={12}
+        fontFamily="Nunito, sans-serif"
       >
         {city}
       </text>

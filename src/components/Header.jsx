@@ -5,7 +5,7 @@ export default function Header({ interactionData, titleColor }) {
         width: "100%",
         textAlign: "center",
         marginBottom: "24px",
-        fontFamily: "Inter, system-ui, sans-serif",
+        fontFamily: "Nunito, sans-serif",
       }}
     >
       <h1
