@@ -55,6 +55,7 @@ export default function Renderer({
     return (
       <rect
         key={i}
+        className={styles.rectangle}
         x={x}
         y={y}
         width={xScale.bandwidth()}
@@ -72,7 +73,6 @@ export default function Renderer({
           });
         }}
         onMouseLeave={() => setHoveredCell(null)}
-        className={styles.rectangle}
       />
     );
   });
