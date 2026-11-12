@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { rollups, mean } from "d3-array";
 import { CITIES } from "./data/cities.js";
 import Heatmap from "./components/Heatmap.jsx";
+import Footer from "./components/Footer.jsx";
 import { useDimensions } from "./hooks/useDimensions.js";
 
 // The Archive API serves historical data.
@@ -104,7 +105,16 @@ export default function App() {
         {isLoading && <p style={{ color: "#6b7280", margin: 0 }}>Loading...</p>}
 
         {!isLoading && data && width > 0 && (
-          <Heatmap data={data} width={width} height={500} />
+          <>
+            <Heatmap data={data} width={width} height={500} />
+
+            <div style={{ paddingBottom: "20px" }}>
+              <Footer
+                dataSourceName="Open-Meteo"
+                dataSourceUrl="https://open-meteo.com/"
+              />
+            </div>
+          </>
         )}
       </div>
     </div>
